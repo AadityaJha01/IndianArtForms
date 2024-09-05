@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Indian Art Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body {
+            --background-color: hsl(180, 20%, 90%);
+          
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          
+            min-height: 100vh;
+            padding: 2rem;
+          
+            color: hsla(0, 0%, 0%, .6);
+            background: var(--background-color);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 60px; /* Increase the font size */
+            background: linear-gradient(90deg, #6a5fff, #84fe7b); /* Add a gradient color */
+            -webkit-background-clip: text;
+            color: transparent;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: 'Arial', sans-serif;
+            margin-top: 20px;
+            letter-spacing: 2px; /* Adds some space between the letters */
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar a {
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 17px;
+            border-radius: 20px; /* Increase border-radius for more rounded corners */
+            margin: 0 10px; /* Add some spacing between the links */
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+            color: white;
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+            height: calc(100vh - 60px); /* Adjust height to account for navbar */
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            width: 25%;
+            background-color: #f1f1f1;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            padding: 8px 12px;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #ddd;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            width: 75%;
+            padding: 20px;
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1> ASSIGNMENT 2 </h1>
+    <P>Create an interactive digital map highlighting key locations significant to
+        Indian art history. Each location can include images, descriptions, and historical context
+        about local art movements, artists, and artworks.</P>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="Assignment1.html">Assignment 1</a>
+        <a href="Assignment3.html">Assignment 3</a>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>Artistic and Historical Landmarks Across India</h2>
+            <ul>
+                <li>
+                    <h3>Uttar Pradesh</h3>
+                    <ul>
+                        <li>Varanasi - Banaras Gharana: Varanasi is known for its classical music, dance, and art traditions, particularly the Banaras Gharana in music.</li>
+                        <li>Lucknow - Awadhi Architecture: Lucknow is famous for its Awadhi architecture, including the Bara Imambara and Chota Imambara, showcasing Mughal architectural influences.</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Delhi</h3>
+                    <ul>
+                        <li>Delhi - Mughal Miniatures: Delhi was a hub of Mughal miniature painting, blending Persian and Indian artistic styles.</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Tamil Nadu</h3>
+                    <ul>
+                        <li>Chennai - Tanjore Paintings: Chennai is associated with the traditional Tanjore paintings, known for their rich colors and surface richness.</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Gujarat</h3>
+                    <ul>
+                        <li>Ahmedabad - Gujarat Textiles: Ahmedabad is famous for its vibrant textile traditions, including Bandhani and Patola weaving.</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Maharashtra</h3>
+                    <ul>
+                        <li>Mumbai - Progressive Artists' Group: Mumbai was the birthplace of the Progressive Artists' Group, which played a significant role in modern Indian art.</li>
+                        <li>Pune - Peshwa Art: Pune is known for its Peshwa art, which includes paintings and artifacts from the Maratha Empire period.</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Karnataka</h3>
+                    <ul>
+                        <li>Badami - Chalukyan Rock-Cut Temples: Badami is renowned for its rock-cut temples, which are important examples of early Indian temple architecture.</li>
+                        <li>Bengaluru - Contemporary Art Scene: Bengaluru has a vibrant contemporary art scene with numerous galleries and art festivals, showcasing modern Indian art.</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>West Bengal</h3>
+                    <ul>
+                        <li>Kolkata - Kalighat Paintings: Kolkata is known for Kalighat paintings, which are a traditional folk art form that originated in the Kalighat region.</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Odisha</h3>
+                    <ul>
+                        <li>Bhubaneswar - Kalinga Architecture: Bhubaneswar is known for its ancient Kalinga architecture, including the Lingaraj Temple and other significant historical sites.</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Rajasthan</h3>
+                    <ul>
+                        <li>Jaipur - Rajput Paintings: Jaipur is known for its Rajput paintings, which are characterized by their vibrant colors and elaborate detailing.</li>
+                        <li>Rajasthan - Hawa Mahal: Rajasthan is home to the Hawa Mahal, an architectural marvel built in the shape of a crown and known for its intricate lattice work.</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Madhya Pradesh</h3>
+                    <ul>
+                        <li>Khajuraho - Erotic Sculptures: Khajuraho is famous for its temples adorned with intricate erotic sculptures, reflecting the region's artistic heritage.</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Kerala</h3>
+                    <ul>
+                        <li>Thrissur - Kathakali: Thrissur is known for its vibrant Kathakali performances, a traditional form of classical dance in Kerala.</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Uttarakhand</h3>
+                    <ul>
+                        <li>Rishikesh - Spiritual Art: Rishikesh is a hub for spiritual art and meditation, drawing artists and seekers from around the world.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([20.5937, 78.9629], 5);
+
+        // Load and display tile layer on the map
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Example locations - you can add more
+        var locations = [
+    // Existing locations
+    {
+        coords: [25.3176, 82.9739],
+        title: 'Varanasi - Banaras Gharana',
+        description: 'Varanasi is known for its classical music, dance, and art traditions, particularly the Banaras Gharana in music.'
+        },
+    {
+        coords: [28.6139, 77.209],
+        title: 'Delhi - Mughal Miniatures',
+        description: 'Delhi was a hub of Mughal miniature painting, blending Persian and Indian artistic styles.'
+    },
+    {
+        coords: [13.0827, 80.2707],
+        title: 'Chennai - Tanjore Paintings',
+        description: 'Chennai is associated with the traditional Tanjore paintings, known for their rich colors and surface richness.'
+    },
+    {
+        coords: [23.0225, 72.5714],
+        title: 'Ahmedabad - Gujarat Textiles',
+        description: 'Ahmedabad is famous for its vibrant textile traditions, including Bandhani and Patola weaving.'
+    },
+    {
+        coords: [19.076, 72.8777],
+        title: 'Mumbai - Progressive Artists\' Group',
+        description: 'Mumbai was the birthplace of the Progressive Artists\' Group, which played a significant role in modern Indian art.'
+    },
+    // Additional locations
+    {
+        coords: [15.3173, 75.7139],
+        title: 'Badami - Chalukyan Rock-Cut Temples',
+        description: 'Badami is renowned for its rock-cut temples, which are important examples of early Indian temple architecture.'
+    },
+    {
+        coords: [12.9716, 77.5946],
+        title: 'Bengaluru - Contemporary Art Scene',
+        description: 'Bengaluru has a vibrant contemporary art scene with numerous galleries and art festivals, showcasing modern Indian art.'
+    },
+    {
+        coords: [22.5726, 88.3639],
+        title: 'Kolkata - Kalighat Paintings',
+        description: 'Kolkata is known for Kalighat paintings, which are a traditional folk art form that originated in the Kalighat region.'
+    },
+    {
+        coords: [30.7333, 76.7794],
+        title: 'Chandigarh - Modernist Architecture',
+        description: 'Chandigarh is famous for its modernist architecture designed by Le Corbusier, reflecting a blend of functionality and aesthetics.'
+    },
+    {
+        coords: [20.2961, 85.8245],
+        title: 'Bhubaneswar - Kalinga Architecture',
+        description: 'Bhubaneswar is known for its ancient Kalinga architecture, including the Lingaraj Temple and other significant historical sites.'
+    },
+    // More locations
+    {
+        coords: [27.0238, 74.2176],
+        title: 'Jaipur - Rajput Paintings',
+        description: 'Jaipur is known for its Rajput paintings, which are characterized by their vibrant colors and elaborate detailing.'
+    },
+    {
+        coords: [26.9124, 75.7873],
+        title: 'Rajasthan - Hawa Mahal',
+        description: 'Rajasthan is home to the Hawa Mahal, an architectural marvel built in the shape of a crown and known for its intricate lattice work.'
+    },
+    {
+        coords: [20.5937, 78.9629],
+        title: 'Nagpur - Seminal Paintings',
+        description: 'Nagpur is known for its Seminal paintings that reflect the folk traditions of the region.'
+    },
+    {
+        coords: [11.0168, 76.9558],
+        title: 'Coimbatore - Indian Weaving Traditions',
+        description: 'Coimbatore is renowned for its weaving traditions, including the production of high-quality textile products.'
+    },
+    {
+        coords: [26.4499, 80.3319],
+        title: 'Lucknow - Awadhi Architecture',
+        description: 'Lucknow is famous for its Awadhi architecture, including the Bara Imambara and Chota Imambara, showcasing Mughal architectural influences.'
+    },
+    {
+        coords: [18.5204, 73.8567],
+        title: 'Pune - Peshwa Art',
+        description: 'Pune is known for its Peshwa art, which includes paintings and artifacts from the Maratha Empire period.'
+    }
+];
+
+
+        // Add markers to the map
+        locations.forEach(function(location) {
+            L.marker(location.coords)
+                .addTo(map)
+                .bindPopup('<h3>' + location.title + '</h3><p>' + location.description + '</p>');
+        });
+    </script>
+</body>
+</html>

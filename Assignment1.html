@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Indian Art Timeline</title>
+    <style>
+        body {
+            --background-color: hsl(180, 20%, 90%);
+          
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          
+            min-height: 100vh;
+            padding: 2rem;
+          
+            color: hsla(0, 0%, 0%, .6);
+            background: var(--background-color);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 60px;
+            background: linear-gradient(90deg, #6a5fff, #84fe7b);
+            -webkit-background-clip: text;
+            color: transparent;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: 'Arial', sans-serif;
+            margin-top: 20px;
+            letter-spacing: 2px;
+        }
+        h2 {
+            font-size: 35px;
+            background: linear-gradient(90deg, #6a5fff, #84fe7b);
+            -webkit-background-clip: text;
+            color: transparent;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: 'Arial', sans-serif;
+            margin-top: 20px;
+            letter-spacing: 2px;
+        }
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .navbar a {
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 17px;
+            border-radius: 20px;
+            margin: 0 10px;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+            color: white;
+        }
+
+        .container {
+            display: flex;
+            height: calc(100vh - 60px);
+            margin: 0 20px;
+        }
+
+        .sidebar {
+            width: 25%;
+            background-color: #f1f1f1;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            overflow-y: auto;
+            margin-right: 20px; /* Add margin to the right of the sidebar */
+            border-radius: 10px; /* Add rounded corners */
+        }
+
+        .sidebar h2 {
+            text-align: center;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+            padding: 8px 12px;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #ddd;
+        }
+
+        .main-content {
+            width: 75%;
+            padding: 20px;
+        }
+
+        #timeline-embed {
+            height: 100%;
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1> ASSIGNMENT 1 </h1>
+    <P>Create an interactive digital timeline highlighting significant
+        Indian art history.</P>
+
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="Assignment2.html">Assignment 2</a>
+        <a href="Assignment3.html">Assignment 3</a>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <h2>History Of Indian Art Forms</h2>
+           <p>
+            Indian art and architecture have evolved over thousands of years, shaped by diverse cultures, religions, and historical influences. From the prehistoric cave paintings at Bhimbetka and the sophisticated city planning of the Indus Valley Civilization to the Mauryan Empire's stone architecture, Indian art has continuously developed. The Gupta period saw the rise of Hindu temple architecture, while the 12th century introduced Indo-Islamic styles, epitomized by the Taj Mahal. The Mughal era enriched Indian art with miniature paintings and grand forts, while British colonial rule brought European influences, creating a unique blend that continues today.</p>
+        </div>
+
+        <div class="main-content">
+            <div id='timeline-embed' style="width: 100%; height: 600px"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
+    <link rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+    <script type="text/javascript">
+        timeline = new TL.Timeline('timeline-embed', 'https://docs.google.com/spreadsheets/d/1QvEZqjUtjk93pSOMxa-hH3ojeRiOLMVwXBqJXRVqJJw/edit?usp=sharing', {
+            initial_zoom: 2,
+            height: 650
+        });
+    </script>
+</body>
+</html>
